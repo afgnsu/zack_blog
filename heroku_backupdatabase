@@ -1,0 +1,3 @@
+rake db:seed:dump MODELS=Post EXCLUDE=rendered_content > /dev/null
+
+cat db/seeds.rb | base64

@@ -1,0 +1,58 @@
+<div id="post-edit">
+<input type="text" class="form-control" ng-model="post.title" />
+<hr />
+
+<!-- <div class="row"> -->
+<div class="content">
+  <ul class="nav nav-tabs">
+    <li 
+      ng-class="{active : isActive('editor') } "
+    >
+      <a tabindex = "-1" ui-sref=".editor">編輯</a>
+    </li>
+    <li
+      ng-class="{active : isActive('preview') } "
+    >
+      <a tabindex = "-1" href="" ng-click="preview()">預覽</a>
+    </li>
+<!--     <li>
+      <a tabindex = "-1" href="" ng-click="show_on_front()">前台顯示</a>
+    </li> -->
+  </ul>
+  <ui-view></ui-view>
+</div>
+
+<div class="sidebar">
+  <div>
+    <!-- <h5>文章狀態</h5> -->
+    <div ng-show="post.state == 'published'">
+      <button class="btn btn-primary btn-block" ng-click="changeState(post)">發佈中</button>
+    </div>
+    <div ng-hide="post.state == 'published'">
+      <button class="btn btn-warning btn-block" ng-click="changeState(post)">草稿</button>
+    </div>
+  </div>
+
+  <hr />
+
+  <button class="btn btn-block btn-info" ng-click="save()">儲存</button>
+  <hr />
+  <button class="btn btn-block btn-default" ng-click="show_on_front()">前台顯示</button>
+  <hr />
+  <div class="published_at">
+    <h3>發佈日期</h3>
+    <div class="form-group">
+        <div class="input-group date">
+            <input type="text" class="form-control" ng-model="post.published_at" value="post.published_at" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+</div>
+<!-- .post-edit -->
+
+<!-- <ui-codemirror ng-model="post.content" ui-codemirror-opts="editorOptions"></ui-codemirror> -->

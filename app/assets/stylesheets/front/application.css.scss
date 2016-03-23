@@ -1,0 +1,91 @@
+$font-family-base: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif, 'LiHei Pro','微軟正黑體' !default;
+// $font-family-serif: 'LiHei Pro','微軟正黑體';
+// $font-family-sans-serif: 'LiHei Pro','微軟正黑體';
+
+// @import "../loading";
+
+@import "zackexplosion-ngLoading";
+
+//Import bootstrap-sprockets
+@import "bootstrap-sprockets";
+
+// Import cerulean variables
+@import "bootswatch/united/variables";
+
+// Then bootstrap itself
+@import "bootstrap";
+
+@import "bootswatch/united/bootswatch";
+@import "bootstrap/variables";
+@import "./*";
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "github-fork-ribbon-css";
+
+h1{
+  word-wrap: break-word;
+}
+
+.hljs{
+  overflow-x: visible;
+}
+body{
+  padding : 50px 0;
+  // font-family: 'LiHei Pro','微軟正黑體' + ;
+}
+
+pre{
+  background-color : #232323;
+}
+@media (max-width: $screen-xs-max) {
+  .navbar-brand{
+    padding-left : 0;
+  }
+  .github-fork-ribbon-wrapper{
+    display: none;
+  }
+}
+/*
+@media (max-width: $screen-sm-min){
+  // #livehouse{
+  //   display: none;
+  // }
+  .navbar-brand{
+    padding-left : 0;
+  }
+  .github-fork-ribbon-wrapper{
+    display: none;
+  }
+
+}
+*/
+
+.navbar-brand{
+  img{
+    margin-right : 7.5px;
+    max-height   : 100%;
+    float        : left;
+  }
+}
+
+.video-wrapper{
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  iframe{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  div#social{
+    position : absolute;
+    bottom   : 0;
+  }
+}
+

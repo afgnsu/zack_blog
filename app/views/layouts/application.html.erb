@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html data-ng-app="blog">
+<head>
+  <title><%= @og[:title] %></title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+  <meta name="author" content="Zack" />
+  <base href="/" />
+  <%= favicon_link_tag 'favicon.png'%>
+
+  <meta property="og:locale" content="zh_TW"/>
+
+  <% @og.each do |k,v| %>
+  <meta property="og:<%= k %>" content="<%= v %>"/>
+  <% end %>
+
+  <% @og_images.each do |v| %>
+  <meta property="og:image" content="<%= v %>"/>
+  <% end %>
+
+  <meta property="og:site_name" content="ZackExplosion"/>
+
+  <meta name="description" content="<%= @og[:description] %>">
+
+  <%= stylesheet_link_tag 'front/application', media: 'all' %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<!--
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.3&appId=890410117671592";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+-->
+
+<div class="github-fork-ribbon-wrapper right" style="position:fixed;">
+    <div class="github-fork-ribbon">
+        <a target="_blank" href="https://github.com/zackexplosion">Fork me on GitHub</a>
+    </div>
+</div>
+
+<!-- <a target="_blank" href="https://github.com/zackexplosion"><img style="z-index:5000; position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a> -->
+
+<div id="zackexplosion-ng-loading" data-ng-show="zackexplosion_loading" class="whirly-loader">Loading…</div>
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div data-class="nav-header">
+      <a class="navbar-brand" data-ui-sref="index">
+        <img alt="Zack's Blog" src="<%= asset_path("favicon.png", type: :image) %>" />Zack's Blog
+      </a>
+    </div>
+    <% if user_signed_in? %>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/backend" target="_blank">後台</a>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+    <% end %>
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+  <div class="row">
+  <div class="col-md-8" data-ui-view></div>
+  <div id="sidebar" class="col-md-3">
+    <div id="sidebar-wrapper">
+
+<!--     <div class="fb-like" data-href="{{current_url}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div> -->
+
+    <!-- <hr /> -->
+
+    <div id="livehouse" data-ng-class="{living : is_streaming()}">
+      <div class="buttons" data-ng-click="changeLiveStatus()">
+        <button data-ng-show="is_streaming()" class="btn"><span class="glyphicon glyphicon-chevron-up"></span></button>
+        <button data-ng-hide="is_streaming()" class="btn"><span class="glyphicon glyphicon-chevron-down"></span></button>
+      </div>
+
+      <h3 data-ng-click="changeLiveStatus()">現場直播</h3>
+      <hr data-ng-show="is_streaming()" />
+<!--       <div data-ng-hide="is_streaming()" class="offline">
+        <h4>實況主正在上班</h4>
+      </div> -->
+      <div data-ng-show="is_streaming()" class="video-wrapper"></div>
+      <div data-ng-show="is_streaming()" class="chat-wrapper"></div>
+
+    </div>
+    <!-- #livehouse -->
+    <hr />
+    <h3>相關內容</h3>
+
+    <div data-ui-view="sidebar_posts">這功能有點懶得寫...</div>
+
+<!-- <div class="btn-group"> -->
+  <hr />
+  <div id="social">
+    <h3>保持聯繫</h3>
+
+    <a class="btn btn-primary" target="_blank" href="https://github.com/cstony0917"><i class="fa fa-github-square fa-2x"></i></a>
+    <a class="btn btn-primary" target="_blank" href="https://www.facebook.com/tony.hsieh2"><i class="fa fa-facebook-square fa-2x"></i></a>
+    <a class="btn btn-primary" target="_blank" href="https://www.youtube.com/user/cstony0917"><i class="fa fa-youtube-square fa-2x"></i></a>
+    <a class="btn btn-primary" target="_blank" href="https://plus.google.com/u/0/+ZackExplosion/posts"><i class="fa fa-google-plus-square fa-2x"></i></a>
+  </div>
+
+
+
+<!-- </div> -->
+
+
+
+    <!-- {{relate_posts | json}}     -->
+
+    </div>
+    <!-- #sidebar-wrapper -->
+  </div>
+  <!-- #sidebar -->
+
+  </div>
+  <!-- .row -->
+
+
+  <%= yield %>
+</div>
+<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+<%= javascript_include_tag 'front/application' %>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8649920-11', 'auto');
+  // ga('send', 'pageview');
+
+</script>
+</body>
+</html>
